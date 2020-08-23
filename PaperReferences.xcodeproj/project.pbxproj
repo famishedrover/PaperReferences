@@ -52,6 +52,7 @@
 		18B70C0024F220B400087C88 /* TableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TableModel.swift; sourceTree = "<group>"; };
 		18B70C0424F2277100087C88 /* Papers.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Papers.swift; sourceTree = "<group>"; };
 		18B70C0624F23CF700087C88 /* MOCK_DATA.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = MOCK_DATA.json; sourceTree = "<group>"; };
+		18B70C0824F246EC00087C88 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,6 +83,7 @@
 		18B70BC824F20E5F00087C88 = {
 			isa = PBXGroup;
 			children = (
+				18B70C0824F246EC00087C88 /* README.md */,
 				18B70BD324F20E5F00087C88 /* PaperReferences */,
 				18B70BE624F20E6100087C88 /* PaperReferencesTests */,
 				18B70BF124F20E6100087C88 /* PaperReferencesUITests */,
