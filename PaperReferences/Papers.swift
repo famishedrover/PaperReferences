@@ -12,16 +12,11 @@ struct Person{
     var name: String
 }
 
-public struct Paper: Codable{
+public struct Paper: Decodable{
     var title: String
     var authors: [String]
-    var date: Date
+    var date: String   // must be string for now since we are reading from json which has everything as string...                     // Using Date() does not work well.
     var bibtex: String
-//    var abstract: String
-//    var done: Bool
-//    var dateAdded: Date
-//    var dateDone: Date
-//    var authors: [Person]
 
 }
 
@@ -40,9 +35,8 @@ public class TableData: NSObject {
         
         
         // read stuff from json and make it into Paper.
-        let datefirst = Date()
-        let first = Paper(title: "first", authors: ["1", "2"], date: datefirst, bibtex: "woah")
-        let second = Paper(title: "second", authors: ["5", "3"], date: datefirst, bibtex: "hey")
+        let first = Paper(title: "first", authors: ["1", "2"], date: "02.04.2020", bibtex: "woah")
+        let second = Paper(title: "second", authors: ["5", "3"], date: "02.04.2020", bibtex: "hey")
         papers = [first, second]
         
     }
@@ -55,8 +49,8 @@ public class TableData: NSObject {
     
     private func loadData(){
         // use url here
-        guard let dummyDataURL = Bundle.main.url(forResource: "MOCK_DATA", withExtension: "json"),
-                   let dummyData = try? Data(contentsOf: dummyDataURL)
+        guard let jsonDataURL = Bundle.main.url(forResource: "MOCK_DATA", withExtension: "json"),
+                   let jsonData = try? Data(contentsOf: jsonDataURL)
                    else {
 //                    print ("some problem")
                     return }
@@ -64,30 +58,10 @@ public class TableData: NSObject {
         
 //        print ("loaded something")
         
-        let data = dummyData
-        let json = try? JSONSerialization.jsonObject(with: data, options: [])
-        print(json)
-        
-//        STILL NOT COMPLETE>...
-        if let array = json as? [Any] {
-            if let firstObject = array.first {
-                // access individual object in array
-            }
-
-            for object in array {
-                // access all objects in array
-            }
-
-            for case let string as String in array {
-                // access only string values in array
-            }
-        }
-        
-        
         let decoder = JSONDecoder()
         decoder.keyDecodingStrategy = .convertFromSnakeCase
         do {
-            papers = try decoder.decode([Paper].self, from: dummyData)
+            papers = try decoder.decode([Paper].self, from: jsonData)
         } catch {
             print(error.localizedDescription)
         }

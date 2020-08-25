@@ -15,7 +15,7 @@ class ViewController: NSViewController {
     
     @IBOutlet weak var paperNameField: NSTextField!
     @IBOutlet weak var paperLabel: NSTextField!
-//    @IBOutlet weak var tableView: NSScrollView!  --> this is the scroll view... drag the Table View under Clip View to get tableView NSTableView.
+    //  @IBOutlet weak var tableView: NSScrollView!  --> this is the scroll view... drag the Table View under Clip View to get tableView NSTableView.
     
     @IBOutlet weak var tableView: NSTableView!
     
@@ -26,7 +26,7 @@ class ViewController: NSViewController {
         tableView.delegate = self
         tableView.dataSource = self
         
-//        print ("viewdidload fun")
+        // print ("viewdidload fun")
         tableData = TableData(jsonPath: "dummyPath")
         reloadTableList()
     }
@@ -34,7 +34,7 @@ class ViewController: NSViewController {
     override var representedObject: Any? {
         didSet {
         // Update the view, if already loaded.
-//            print ("representedObject fun")
+        // print ("representedObject fun")
             tableData = TableData(jsonPath: "dummyPath")
             reloadTableList()
         }
@@ -49,17 +49,34 @@ class ViewController: NSViewController {
         
         let greeting = "Added \(name)!"
         paperLabel.stringValue = greeting
+        
+        
+        let url = URL(string: "http://export.arxiv.org/api/query?search_query=all:electron&start=0&max_results=1")!
+
+        let task = URLSession.shared.dataTask(with: url) {(data, response, error) in
+            guard let data = data else { return }
+//            print(String(data: data, encoding: .utf8)!)
+            var xmlval = XMLParser(data: data)
+            
+            print (xmlval)
+        }
+        task.resume()
+        
     }
 
     
     func reloadTableList() {
-//      directoryItems = directory?.contentsOrderedBy(sortOrder, ascending: sortAscending)
+        // directoryItems = directory?.contentsOrderedBy(sortOrder, ascending: sortAscending)
       tableItems = tableData?.getData()
       tableView.reloadData()
     }
     
 }
 
+
+// =====================================================================================
+// ==================================== TABLE STUFF ====================================
+// =====================================================================================
 extension ViewController: NSTableViewDataSource {
   
   func numberOfRows(in tableView: NSTableView) -> Int {
@@ -96,7 +113,8 @@ extension ViewController: NSTableViewDelegate {
 
     // 2
     if tableColumn == tableView.tableColumns[0] {
-        text = dateFormatter.string(from: item.date)
+//        text = dateFormatter.string(from: item.date)
+        text = item.date
         cellIdentifier = CellIdentifiers.DateCell
     }
     
